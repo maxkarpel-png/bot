@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BTC Arbitrage Bot</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Polymarket ↔ Kalshi</p>
+        <h1>BTC 1-Hour Arbitrage Monitor</h1>
+        <p class="subhead">
+          Live opportunities refreshed from the backend. Green rows signal cost &lt; $1.00.
+        </p>
+      </div>
+      <div class="status" id="status">Connecting…</div>
+    </header>
+
+    <section class="summary" id="summary"></section>
+
+    <main>
+      <table>
+        <thead>
+          <tr>
+            <th>Market</th>
+            <th>Expiration (UTC)</th>
+            <th>Strike</th>
+            <th>Best Strategy</th>
+            <th>Total Cost</th>
+            <th>Profit</th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </main>
+
+    <footer>
+      <p>Powered by FastAPI · Sample data loads if APIs are unavailable.</p>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
