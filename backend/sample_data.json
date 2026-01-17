@@ -1,0 +1,22 @@
+{
+  "markets": [
+    {
+      "market_id": "BTC-1H-1234",
+      "expiration": "2030-01-01T12:00:00Z",
+      "strike_price": 65000,
+      "polymarket_up_price": 0.48,
+      "polymarket_down_price": 0.54,
+      "kalshi_yes_price": 0.49,
+      "kalshi_no_price": 0.52
+    },
+    {
+      "market_id": "BTC-1H-5678",
+      "expiration": "2030-01-01T13:00:00Z",
+      "strike_price": 65200,
+      "polymarket_up_price": 0.45,
+      "polymarket_down_price": 0.57,
+      "kalshi_yes_price": 0.46,
+      "kalshi_no_price": 0.55
+    }
+  ]
+}
