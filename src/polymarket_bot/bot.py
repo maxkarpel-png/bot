@@ -4,19 +4,19 @@ import logging
 from decimal import Decimal
 from typing import Iterable
 
-from .client import PolymarketClient
+from .client import PolymarketClient, PolymarketClientError
 from .config import BotConfig
 from .strategy import ArbitrageStrategy
-from .types import ArbitrageOpportunity, OrderBook
+from .types import ArbitrageOpportunity
 
 
 logger = logging.getLogger(__name__)
 
 
 class PolymarketArbBot:
-    def __init__(self, config: BotConfig) -> None:
+    def __init__(self, config: BotConfig, client: PolymarketClient | None = None) -> None:
         self.config = config
-        self.client = PolymarketClient(config)
+        self.client = client or PolymarketClient(config)
         self.strategy = ArbitrageStrategy(config.min_edge, config.max_order_size)
 
     def scan_market(self, market_id: str) -> list[ArbitrageOpportunity]:
@@ -29,6 +29,7 @@ class PolymarketArbBot:
         if self.config.dry_run:
             logger.info("Dry run: would place orders for %s", opportunity)
             return
+
         logger.info("Placing arbitrage orders for %s", opportunity.market_id)
         self.client.place_order(
             opportunity.market_id,
@@ -52,7 +53,10 @@ class PolymarketArbBot:
     def run_batch(self, market_ids: Iterable[str]) -> list[ArbitrageOpportunity]:
         all_opportunities: list[ArbitrageOpportunity] = []
         for market_id in market_ids:
-            all_opportunities.extend(self.run_once(market_id))
+            try:
+                all_opportunities.extend(self.run_once(market_id))
+            except PolymarketClientError as exc:
+                logger.error("Market scan failed for %s: %s", market_id, exc)
         return all_opportunities
 
 
