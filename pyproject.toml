@@ -1,0 +1,18 @@
+[project]
+name = "polymarket-bot"
+version = "0.2.0"
+description = "Polymarket arbitrage bot"
+requires-python = ">=3.11"
+
+[project.scripts]
+polymarket-bot = "polymarket_bot.cli:main"
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
